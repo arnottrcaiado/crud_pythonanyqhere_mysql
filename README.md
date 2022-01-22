@@ -25,7 +25,8 @@ sequencia git
 # endpoints
 /
 
-/usuario
-/incluir
-/pesquisar
-/deletar
+https://icapp.pythonanywhere.com
+https://icapp.pythonanywhere.com/incluir
+https://icapp.pythonanywhere.com/editar
+https://icapp.pythonanywhere.com/pesquisar
+https://icapp.pythonanywhere.com/excluir
