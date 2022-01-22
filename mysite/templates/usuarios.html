@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport"
+              content="width=device-widt, user-scalable=no, initial-scale=1.0, maximum-sacale=1.0, minimum-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie-edge">
+        <title>Usuarios</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    </head>
+    <body>
+        <h1 style="text-align: center;">C.R.U.D. Cadastro de Usuari@s</h1>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a href="/incluir">Incluir @s</a>
+                    <a href="/pesquisar">|| Pesquisar @s</a>
+                </div>
+
+                <div class="col-xs-12">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Nome</th>
+                                <th>email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for u in usuarios %}
+                            <tr>
+                                <td>{{u.id}}</td>
+                                <td>{{u.nome}}</td>
+                                <td>{{u.email}}</td>
+                                <td>
+                                    <a href="/editar/{{u.id}}"> Editar </a>
+                                    <a href="/excluir/{{u.id}}"> | Excluir</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>

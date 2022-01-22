@@ -1,0 +1,13 @@
+
+  {% if result.skills %}
+    {% set skillsTable = result.skillsTable %}
+    <h2>TECHNICAL SKILLS</h2>
+    <table>
+      {% for skill in skillsTable %}
+        {% if loop.index|int % 2 == 0 %}
+        <tr><td>{{ skillsTable.pop(0) }}:</td><td>{{ skillsTable.pop(0) }}</td></tr>
+        {% else %}
+          <tr><td>{{ skillsTable.pop(0) }}:</td><td>{{ skillsTable.pop(0) }}</td></tr>
+        {% endif %}
+       {% endfor %}
+    {% endif %}
