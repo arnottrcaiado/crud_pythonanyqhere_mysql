@@ -1,12 +1,14 @@
 #
 # CRUD utilizando SQLAlchemy e MYSQL - Pythonanywhere
+# fins didáticos
+# Arnott Ramos Caiado
+# janeiro de 2022
 # fonte:
 # https://www.youtube.com/watch?v=VNaTl2i5P1U
 # https://www.youtube.com/watch?v=WDpPGFkI9UU
 #
 from flask import Flask, Response, request, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
-import mysql.connector
 import json
 import os
 import time
@@ -17,11 +19,13 @@ arq='/home/icapp/mysite/arquivos/log.csv'
 os.environ["TZ"] = "America/Recife"
 time.tzset()
 
+# configuração base do sqlalchemy
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://icapp:1234567ABC@icapp.mysql.pythonanywhere-services.com/icapp$usuarios'
 db = SQLAlchemy(app)
 
+# criação da classe com a estrutura da tabela Usuario
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key= True)
     nome = db.Column(db.String(50))
@@ -33,6 +37,11 @@ class Usuario(db.Model):
 
 # app atraves de html
 # tabela de dados com opções de alteração, inclusão e edição
+# opções de busca.
+# ?order=desc . ordena em ordem descendente, pelo nome
+# ?order=no . em ordem de cadastro
+# filter e pfilter . usados pelo endpoit de pesquisa para pesquisar por nome ou email. Exemplo: maria% para buscar nomes iniciados por maria
+#
 @app.route("/")
 def menu():
     order = request.args.get('order', default = "asc", type = str )
@@ -56,8 +65,9 @@ def menu():
         usuarios = Usuario.query.all()
 
     return render_template( 'usuarios.html', usuarios=usuarios )
-
-# inclusão de dados - a partir de uma identificacao chave
+#
+# inclusão de dados
+#
 @app.route("/incluir", methods=['GET','POST'])
 def incluir():
     if request.method == 'POST':
@@ -70,8 +80,9 @@ def incluir():
         return redirect(url_for('menu'))
 
     return render_template('incluir.html')
-
-# edição de dados - a partir de uma identificacao chave
+#
+# edição de dados - utiliza o id da linha escolhida
+#
 @app.route("/editar/<int:id>", methods=['GET','POST'])
 def editar(id):
     usuario=Usuario.query.get(id)
@@ -82,8 +93,9 @@ def editar(id):
         return redirect(url_for('menu'))
 
     return render_template('editar.html', usuario=usuario)
-
-# exclusao de dados - a partir de uma identificacao chave
+#
+# exclusao de dados - utiliza o id da linha escolhida
+#
 @app.route("/excluir/<int:id>")
 def excluir(id):
     usuario=Usuario.query.get(id)
@@ -91,8 +103,9 @@ def excluir(id):
     db.session.commit()
     return redirect( url_for('menu'))
 
-
-# busca de dados - a partir de uma identificacao chave
+#
+# busca de dados - permite a busca por nome ou email ou todos se nome e email em branco
+#
 @app.route("/pesquisar", methods=['GET','POST'])
 def pesquisar():
     if request.method == 'POST':
@@ -109,8 +122,9 @@ def pesquisar():
         return redirect(url_for('menu', filters=filters, pfilter=pfilter))
     return render_template('pesquisar.html')
 
-
+#
 # salva log - data hora e ip. possibilita pelo menos medir acessos
+#
 def salva_log( arquivo, ipuser) :
     arq = open(arquivo,'a')
     data_atual = str(date.today())
