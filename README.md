@@ -6,11 +6,26 @@
 # Prof. Arnott Ramos Caiado
 # Uso didático
 
+python
+pythonanywhere.com
+sqlalchemy
+mysql
+
+
 sequencia git
 
-git init
-git config --global user.name arnottrcaiado
-git commit -m "CRUD inicial commit"
-git remote add crud https://github.com/arnottrcaiado/crud_pythonanyqhere_mysql.git
-git config --global push.default matching
-git push --set-upstream crud master
+# git init
+# git config --global user.name arnottrcaiado
+# git commit -m "CRUD inicial commit"
+# git remote add crud https://github.com/arnottrcaiado/crud_pythonanyqhere_mysql.git
+# git config --global push.default matching
+# git push --set-upstream crud master
+
+
+# endpoints
+/
+
+/usuario
+/incluir
+/pesquisar
+/deletar
