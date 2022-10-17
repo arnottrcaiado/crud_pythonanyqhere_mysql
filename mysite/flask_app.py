@@ -28,6 +28,13 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://icapp:1234567ABC@icapp.mysql.pythonanywhere-services.com/icapp$usuarios'
 db = SQLAlchemy(app)
 
+# etapa 1 - criação do db
+# no console python
+# >>> from petcb_main import db
+# >>> db.create_all()
+# flask db init
+#
+
 # criação da classe com a estrutura da tabela Usuario
 class Usuario(db.Model):
     id = db.Column(db.Integer, primary_key= True)
