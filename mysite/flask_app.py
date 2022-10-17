@@ -137,7 +137,7 @@ def pesquisar():
 def salva_log( arquivo, ipuser) :
     arq = open(arquivo,'a')
     data_atual = str(date.today())
-    hora_atual = str(datetime.time(datetime.utcnow()))
+    hora_atual = str(datetime.time(datetime.now()))
     hora_atual = hora_atual[0:5]
     arq.write(data_atual+";"+hora_atual+";"+ipuser+"\n")
     arq.close()
