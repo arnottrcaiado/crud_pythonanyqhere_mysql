@@ -7,6 +7,9 @@
 # https://www.youtube.com/watch?v=VNaTl2i5P1U
 # https://www.youtube.com/watch?v=WDpPGFkI9UU
 #
+# rota principal
+# https://icapp.pythonanywhere.com/
+#
 from flask import Flask, Response, request, render_template, url_for, redirect
 from flask_sqlalchemy import SQLAlchemy
 import json
@@ -41,7 +44,7 @@ class Usuario(db.Model):
 # ?order=desc . ordena em ordem descendente, pelo nome
 # ?order=no . em ordem de cadastro
 # filter e pfilter . usados pelo endpoit de pesquisa para pesquisar por nome ou email. Exemplo: maria% para buscar nomes iniciados por maria
-#
+# https://icapp.pythonanywhere.com/
 @app.route("/")
 def menu():
     order = request.args.get('order', default = "asc", type = str )
@@ -67,7 +70,7 @@ def menu():
     return render_template( 'usuarios.html', usuarios=usuarios )
 #
 # inclusão de dados
-#
+# https://icapp.pythonanywhere.com/incluir
 @app.route("/incluir", methods=['GET','POST'])
 def incluir():
     if request.method == 'POST':
@@ -82,7 +85,7 @@ def incluir():
     return render_template('incluir.html')
 #
 # edição de dados - utiliza o id da linha escolhida
-#
+# https://icapp.pythonanywhere.com/editar
 @app.route("/editar/<int:id>", methods=['GET','POST'])
 def editar(id):
     usuario=Usuario.query.get(id)
@@ -95,7 +98,7 @@ def editar(id):
     return render_template('editar.html', usuario=usuario)
 #
 # exclusao de dados - utiliza o id da linha escolhida
-#
+# https://icapp.pythonanywhere.com/excluir
 @app.route("/excluir/<int:id>")
 def excluir(id):
     usuario=Usuario.query.get(id)
@@ -152,6 +155,7 @@ def seleciona_usuario(id):
     return gera_response(200, "usuario", usuario_json)
 
 # Cadastrar
+# https://icapp.pythonanywhere.com/usuario
 @app.route("/usuario", methods=["POST"])
 def cria_usuario():
     body = request.get_json()
@@ -167,6 +171,7 @@ def cria_usuario():
 
 
 # Atualizar
+# https://icapp.pythonanywhere.com/usuario/<id>
 @app.route("/usuario/<id>", methods=["PUT"])
 def atualiza_usuario(id):
     usuario_objeto = Usuario.query.filter_by(id=id).first()
@@ -186,6 +191,7 @@ def atualiza_usuario(id):
         return gera_response(400, "usuario", {}, "Erro ao atualizar")
 
 # Deletar
+# https://icapp.pythonanywhere.com/usuario/<id>
 @app.route("/usuario/<id>", methods=["DELETE"])
 def deleta_usuario(id):
     usuario_objeto = Usuario.query.filter_by(id=id).first()
